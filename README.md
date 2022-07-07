@@ -16,6 +16,10 @@ Run this command before change/add env
 
 `JWT_SECRET` Example: `foo`
 
+`HOST`
+
+`PORT`
+
 ## Run Locally
 
 Clone the project

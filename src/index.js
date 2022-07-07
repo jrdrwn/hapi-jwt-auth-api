@@ -13,8 +13,8 @@ const init = async () => {
   await mongoose.connect(process.env.MONGODB_URL);
 
   const server = Hapi.server({
-    port: 3000,
-    host: 'localhost',
+    port: process.env.PORT | 3000,
+    host: process.env.HOST | 'localhost',
     routes: {
       cors: true,
     },
