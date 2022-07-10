@@ -9,9 +9,6 @@ module.exports = [
     options: {
       tags: ['api'],
       description: 'Get user',
-      payload: {
-        multipart: true,
-      },
       validate: {
         headers: Joi.object({
           authorization: Joi.string().required().description('Bearer YOUR_TOKEN'),
