@@ -24,9 +24,12 @@ module.exports = [
       response: {
         schema: Joi.object({
           token: Joi.string(),
-          name: Joi.string(),
-          email: Joi.string().email(),
-          title: Joi.string(),
+          user: Joi.object({
+            name: Joi.string(),
+            email: Joi.string().email(),
+            title: Joi.string(),
+            photo: Joi.string().allow('').uri(),
+          }),
         }),
       },
     },
@@ -47,7 +50,7 @@ module.exports = [
         payload: Joi.object({
           email: Joi.string().email().required().description('Your active email'),
           password: Joi.string().required().description('Strongest password'),
-          photo: Joi.string().uri().optional().description('URI of your profile photo'),
+          photo: Joi.string().allow('').uri().optional().description('URI of your profile photo'),
           name: Joi.string().required().description('Your full name'),
           title: Joi.string().required().description('Your job title'),
         }),
@@ -55,11 +58,10 @@ module.exports = [
       response: {
         schema: Joi.object({
           email: Joi.string().email(),
-          password: Joi.string(),
-          photo: Joi.string().uri(),
+          photo: Joi.string().allow('').uri(),
           name: Joi.string(),
           title: Joi.string(),
-        }),
+        }).unknown(),
       },
     },
   },
@@ -79,8 +81,8 @@ module.exports = [
       },
       validate: {
         headers: Joi.object({
-          Authorization: Joi.string().required().description('Your token'),
-        }),
+          authorization: Joi.string().required().description('Your token'),
+        }).unknown(),
       },
       response: {
         schema: Joi.object({

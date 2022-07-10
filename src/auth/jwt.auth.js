@@ -11,11 +11,12 @@ module.exports = {
       sub: false,
     },
     validate: async (artifacts) => {
-      const account = await Users.findOne({ email: artifacts.decoded.payload.email });
+      const userId = artifacts.decoded.payload.userId;
+      const account = await Users.findById(userId);
       if (!account) return { isValid: false };
       return {
         isValid: true,
-        credentials: { email: artifacts.decoded.payload.email },
+        credentials: { userId },
       };
     },
   },

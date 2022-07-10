@@ -11,18 +11,26 @@ module.exports = {
       return Boom.unauthorized();
     }
     const token = jwt.token.generate(
-      { email: account.email, aud: 'urn:audience:api', iss: 'urn:issuer:api' },
+      { userId: account.id, aud: 'urn:audience:api', iss: 'urn:issuer:api' },
       process.env.JWT_SECRET
     );
-    return h.response({ token, name: account.name, photo: account.photo, title: account.title });
+    return h.response({
+      token,
+      user: {
+        name: account.name,
+        photo: account.photo,
+        email: account.email,
+        title: account.title,
+      },
+    });
   },
   register: async (request, h) => {
     if (request.payload && Array.isArray(request.payload)) return Boom.badData();
     const account = await Users.create(request.payload);
-    return h.response(account);
+    return h.response({ created: true, userId: account.id });
   },
   logout: async (request, h) => {
-    const account = await Users.deleteOne({ email: request.auth.credentials.email });
+    const account = await Users.deleteOne({ _id: request.auth.credentials.userId });
     return h.response({ deleted: Boolean(account.deletedCount) });
   },
 };
