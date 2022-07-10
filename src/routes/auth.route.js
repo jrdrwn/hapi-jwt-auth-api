@@ -65,30 +65,4 @@ module.exports = [
       },
     },
   },
-  {
-    path: '/auth/logout',
-    method: 'DELETE',
-    handler: authHandler.logout,
-    options: {
-      auth: {
-        mode: 'required',
-      },
-      description: 'Delete your account',
-      notes: 'Attention: will permanently delete your registered account on the server',
-      tags: ['api'],
-      payload: {
-        multipart: true,
-      },
-      validate: {
-        headers: Joi.object({
-          authorization: Joi.string().required().description('Your token'),
-        }).unknown(),
-      },
-      response: {
-        schema: Joi.object({
-          deleted: Joi.boolean(),
-        }),
-      },
-    },
-  },
 ];

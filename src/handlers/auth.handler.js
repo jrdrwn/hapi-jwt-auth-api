@@ -29,8 +29,4 @@ module.exports = {
     const account = await Users.create(request.payload);
     return h.response({ created: true, userId: account.id });
   },
-  logout: async (request, h) => {
-    const account = await Users.deleteOne({ _id: request.auth.credentials.userId });
-    return h.response({ deleted: Boolean(account.deletedCount) });
-  },
 };
