@@ -8,6 +8,7 @@ const Inert = require('@hapi/inert');
 const Vision = require('@hapi/vision');
 const HapiSwagger = require('hapi-swagger');
 const package = require('../package.json');
+const usersRouter = require('./routes/users.router');
 
 const init = async () => {
   await mongoose.connect(process.env.MONGODB_URL);
@@ -59,6 +60,7 @@ const init = async () => {
   server.auth.default(jwtAuth.name);
 
   server.route(authRouter);
+  server.route(usersRouter);
 
   await server.start();
 };
