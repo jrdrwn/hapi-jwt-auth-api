@@ -20,7 +20,7 @@ module.exports = {
         name: account.name,
         photo: account.photo,
         email: account.email,
-        title: account.title,
+        role: account.role,
       },
     });
   },

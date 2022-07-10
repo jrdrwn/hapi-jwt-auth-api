@@ -27,7 +27,7 @@ module.exports = [
           user: Joi.object({
             name: Joi.string(),
             email: Joi.string().email(),
-            title: Joi.string(),
+            role: Joi.string(),
             photo: Joi.string().allow('').uri(),
           }),
         }),
@@ -52,7 +52,7 @@ module.exports = [
           password: Joi.string().required().description('Strongest password'),
           photo: Joi.string().allow('').uri().optional().description('URI of your profile photo'),
           name: Joi.string().required().description('Your full name'),
-          title: Joi.string().required().description('Your job title'),
+          role: Joi.string().required().description('Your job role'),
         }),
       },
       response: {
@@ -60,7 +60,7 @@ module.exports = [
           email: Joi.string().email(),
           photo: Joi.string().allow('').uri(),
           name: Joi.string(),
-          title: Joi.string(),
+          role: Joi.string(),
         }).unknown(),
       },
     },

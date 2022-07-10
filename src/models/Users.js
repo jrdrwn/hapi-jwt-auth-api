@@ -23,7 +23,7 @@ const userSchema = new mongoose.Schema(
       type: String,
       index: true,
     },
-    title: {
+    role: {
       type: String,
       required: true,
       index: true,
