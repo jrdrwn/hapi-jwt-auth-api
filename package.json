@@ -22,7 +22,7 @@
     "email": "jordirwn@gmail.com",
     "url": "https://jrdrwn.github.io/"
   },
-  "main": "./src/index.js",
+  "main": "./index.js",
   "scripts": {
     "dev": "nodemon",
     "format": "prettier . --write",
