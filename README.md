@@ -52,6 +52,18 @@ And go to http://localhost:3000/documentation to see what you can do
 
 go to http://localhost:3000/documentation
 
+## Deploying to Heroku
+
+```
+  heroku create
+  git push heroku main
+  heroku open
+```
+
+Alternatively, you can deploy your own copy of the app using this button:
+
+[![Deploy to Heroku](https://www.herokucdn.com/deploy/button.png)](https://heroku.com/deploy)
+
 ## License
 
 [MIT](https://choosealicense.com/licenses/mit/)
