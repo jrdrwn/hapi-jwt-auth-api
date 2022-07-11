@@ -1,0 +1,21 @@
+{
+  "name": "HapiJS JWT Auth API",
+  "description": "Auth API that I created using HapiJS",
+  "repository": "https://github.com/jrdrwn/hapi-jwt-auth-api",
+  "keywords": ["nodejs", "rest-api", "hapijs"],
+  "env": {
+    "MONGODB_URL": {
+      "description": "Go to this tutorial https://www.mongodb.com/docs/guides/atlas/connection-string/"
+    },
+    "JWT_SECRET": {
+      "description": "https://stackoverflow.com/questions/31309759/what-is-secret-key-for-jwt-based-authentication-and-how-to-generate-it",
+      "value": "secret"
+    },
+    "HOST": {
+      "value": "0.0.0.0"
+    },
+    "PORT": {
+      "value": "5000"
+    }
+  }
+}
