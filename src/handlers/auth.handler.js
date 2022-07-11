@@ -26,6 +26,8 @@ module.exports = {
   },
   register: async (request, h) => {
     if (request.payload && Array.isArray(request.payload)) return Boom.badData();
+    const check = await Users.findOne({ email: request.payload.email });
+    if (check) return Boom.badData('Email is already in use');
     const account = await Users.create(request.payload);
     return h.response({ created: true, userId: account.id });
   },
