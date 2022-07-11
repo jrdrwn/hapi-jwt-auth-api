@@ -1,6 +1,6 @@
 const Users = require('../models/Users');
 const Boom = require('@hapi/boom');
-const bcrypt = require('../config/bcrypt');
+const bcrypt = require('../utils/bcrypt');
 
 module.exports = {
   updateUser: async (request, h) => {
