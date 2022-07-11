@@ -30,7 +30,7 @@ module.exports = [
     handler: userHandler.updateUser,
     options: {
       tags: ['api'],
-      description: 'Update profil user',
+      description: 'Update user',
       payload: {
         multipart: true,
       },
