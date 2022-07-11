@@ -8,6 +8,7 @@ const Inert = require('@hapi/inert');
 const Vision = require('@hapi/vision');
 const HapiSwagger = require('hapi-swagger');
 const package = require('../package.json');
+const Boom = require('@hapi/boom');
 
 const init = async () => {
   await mongoose.connect(process.env.MONGODB_URL);
@@ -17,6 +18,16 @@ const init = async () => {
     host: process.env.HOST || 'localhost',
     routes: {
       cors: true,
+      validate: {
+        failAction: async (request, h, err) => {
+          request.logger.error(err);
+          if (process.env.NODE_ENV === 'production') {
+            throw Boom.badRequest(err.message);
+          } else {
+            throw err;
+          }
+        },
+      },
     },
   });
 
