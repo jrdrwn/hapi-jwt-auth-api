@@ -27,7 +27,8 @@
     "dev": "nodemon",
     "format": "prettier . --write",
     "format:check": "prettier . --check",
-    "start": "pm2-runtime start ecosystem.config.js --env production"
+    "start": "pm2-runtime start ecosystem.config.js --env production",
+    "test": "jest --detectOpenHandles"
   },
   "dependencies": {
     "@hapi/hapi": "^20.2.2",
@@ -44,8 +45,11 @@
     "pm2": "^5.2.0"
   },
   "devDependencies": {
+    "@jest/globals": "^28.1.2",
+    "jest": "^28.1.2",
     "nodemon": "^2.0.19",
-    "prettier": "^2.7.1"
+    "prettier": "^2.7.1",
+    "supertest": "^6.2.4"
   },
   "engines": {
     "node": ">=16.13.0"

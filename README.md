@@ -48,6 +48,16 @@ Start the server
 
 And go to http://localhost:3000/documentation to see what you can do
 
+## Running Tests
+
+To run tests, run the following command
+
+```bash
+  npm run test
+```
+
+NOTE: setup environment before testing
+
 ## API Reference
 
 go to http://localhost:3000/documentation
