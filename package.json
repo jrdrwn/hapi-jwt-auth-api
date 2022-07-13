@@ -24,11 +24,11 @@
   },
   "main": "./index.js",
   "scripts": {
-    "dev": "nodemon",
+    "dev": "dotenv -c development -v NODE_ENV=development nodemon",
     "format": "prettier . --write",
     "format:check": "prettier . --check",
-    "start": "pm2-runtime start ecosystem.config.js --env production",
-    "test": "jest --detectOpenHandles"
+    "start": "dotenv -c production -v NODE_ENV=production pm2-runtime start ecosystem.config.js --env production",
+    "test": "dotenv -c test -v NODE_ENV=test jest --detectOpenHandles"
   },
   "dependencies": {
     "@hapi/hapi": "^20.2.2",
@@ -36,7 +36,7 @@
     "@hapi/jwt": "^2.1.1",
     "@hapi/vision": "^6.1.0",
     "bcrypt": "^5.0.1",
-    "dotenv": "^16.0.1",
+    "dotenv-cli": "^6.0.0",
     "hapi-pino": "^10.1.0",
     "hapi-swagger": "^14.5.5",
     "joi": "^17.6.0",
