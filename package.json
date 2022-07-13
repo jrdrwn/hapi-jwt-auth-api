@@ -24,6 +24,10 @@
   },
   "main": "./index.js",
   "scripts": {
+    "compose:mongo:down": "docker compose -f mongo-compose.yaml down",
+    "compose:mongo:start": "docker compose -f mongo-compose.yaml start",
+    "compose:mongo:stop": "docker compose -f mongo-compose.yaml stop",
+    "compose:mongo:up": "docker compose -f mongo-compose.yaml up -d",
     "dev": "dotenv -c development -v NODE_ENV=development nodemon",
     "format": "prettier . --write",
     "format:check": "prettier . --check",
