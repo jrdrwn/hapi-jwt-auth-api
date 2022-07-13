@@ -62,6 +62,10 @@ typings/
 # next.js build output
 .next
 
+.env.development.local
+.env.test.local
+.env.production.local
+.env.local
 .env
 .vscode/
 data/

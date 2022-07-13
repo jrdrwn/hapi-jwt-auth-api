@@ -20,6 +20,8 @@ Run this command before change/add env
 
 `PORT`
 
+[READ THIS](https://github.com/bkeepers/dotenv/blob/master/README.md#what-other-env-files-can-i-use)
+
 ## Run Locally
 
 Clone the project
