@@ -12,14 +12,6 @@ Run this command before change/add env
   cp .env.example .env
 ```
 
-`MONGODB_URL` [Guide](https://www.mongodb.com/docs/manual/reference/connection-string/)
-
-`JWT_SECRET` Example: `foo`
-
-`HOST`
-
-`PORT`
-
 [READ THIS](https://github.com/bkeepers/dotenv/blob/master/README.md#what-other-env-files-can-i-use)
 
 ## Run Locally
