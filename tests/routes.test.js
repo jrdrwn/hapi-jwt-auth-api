@@ -1,7 +1,10 @@
-const { describe, expect, test } = require('@jest/globals');
+const { Server } = require('@hapi/hapi');
+const { describe, expect, test, beforeEach } = require('@jest/globals');
 const { default: mongoose, isValidObjectId } = require('mongoose');
+const Token = require('../lib/models/Token');
 const Users = require('../lib/models/Users');
 const { init } = require('../lib/server');
+const emailService = require('../lib/services/email.service');
 
 const fakeUser = {
   email: 'rpritchitt9@t.co',
@@ -14,7 +17,9 @@ const currentUser = {};
 const headers = {
   authorization: '',
 };
-
+/**
+ * @type {Server}
+ */
 let server;
 
 beforeAll(async () => {
@@ -105,6 +110,45 @@ describe('/auth', () => {
       expect(res.statusCode).toEqual(400);
     });
   });
+  describe('POST /auth/send-verification-email', () => {
+    beforeEach(() => {
+      jest.spyOn(emailService.transport, 'sendMail').mockResolvedValue();
+    });
+    test('harus berhasil mengirim url untuk verifikasi ke email user', async () => {
+      expect.assertions(3);
+      const sendVerificationEmailSpy = jest.spyOn(emailService, 'sendVerificationEmail');
+      const res = await server.inject({
+        method: 'POST',
+        url: '/auth/send-verification-email',
+        payload: {
+          userId: currentUser.userId,
+        },
+      });
+
+      expect(res.result.success).toBeTruthy();
+      expect(sendVerificationEmailSpy).toHaveBeenCalledWith(fakeUser.email, expect.any(String));
+      const verifyEmailToken = sendVerificationEmailSpy.mock.calls[0][1];
+      currentUser.verifyEmailToken = verifyEmailToken;
+      const dbVerifyEmailToken = await Token.findOne({
+        token: verifyEmailToken,
+        user: currentUser.userId,
+      });
+
+      expect(dbVerifyEmailToken).toBeDefined();
+    });
+  });
+  describe('GET /auth/verify-email', () => {
+    test('harus berhasil memverifikasi email user', async () => {
+      expect.assertions(2);
+      const res = await server.inject({
+        method: 'GET',
+        url: `/auth/verify-email?token=${currentUser.verifyEmailToken}`,
+      });
+      expect(res.result.verified).toBeTruthy();
+      const user = await Users.findById(currentUser.userId);
+      expect(user.isEmailVerified).toBeTruthy();
+    });
+  });
   describe('POST /auth/login', () => {
     const url = '/auth/login';
     const account = {
@@ -169,6 +213,48 @@ describe('/auth', () => {
         payload: failedAccount,
       });
       expect(res.statusCode).toEqual(400);
+    });
+  });
+  describe('POST /auth/forgot-password', () => {
+    beforeEach(() => {
+      jest.spyOn(emailService.transport, 'sendMail').mockResolvedValue();
+    });
+    test('harus berhasil mengirim token untuk mereset password ke email user', async () => {
+      expect.assertions(3);
+      const sendResetPasswordEmailSpy = jest.spyOn(emailService, 'sendResetPasswordEmail');
+      const res = await server.inject({
+        method: 'POST',
+        url: '/auth/forgot-password',
+        headers,
+      });
+
+      expect(res.result.success).toBeTruthy();
+      expect(sendResetPasswordEmailSpy).toHaveBeenCalledWith(fakeUser.email, expect.any(String));
+      const passwordResetToken = sendResetPasswordEmailSpy.mock.calls[0][1];
+      currentUser.passwordResetToken = passwordResetToken;
+      const dbResetPasswordToken = await Token.findOne({
+        token: passwordResetToken,
+        user: currentUser.userId,
+      });
+
+      expect(dbResetPasswordToken).toBeDefined();
+    });
+  });
+  describe('PUT /auth/reset-password', () => {
+    test('harus berhasil mereset password user', async () => {
+      expect.assertions(2);
+      const fakeUserNewPassword = 'new password';
+      const res = await server.inject({
+        method: 'PUT',
+        url: `/auth/reset-password?token=${currentUser.passwordResetToken}`,
+        payload: {
+          password: fakeUserNewPassword,
+        },
+        headers,
+      });
+      expect(res.result.isReset).toBeTruthy();
+      const user = await Users.findById(currentUser.userId);
+      expect(user.isPasswordMatch(fakeUserNewPassword)).toBeTruthy();
     });
   });
 });
