@@ -7,6 +7,15 @@ jobs:
   build:
     runs-on: ubuntu-latest
     environment: test
+    env:
+      MONGODB_URL: ${{ secrets.MONGODB_URL }}
+      JWT_SECRET: ${{ secrets.JWT_SECRET }}
+      SMTP_HOST: ${{ secrets.SMTP_HOST }}
+      SMTP_USER: ${{ secrets.SMTP_USER }}
+      SMTP_PASS: ${{ secrets.SMTP_PASS }}
+      EMAIL_FROM: ${{ secrets.EMAIL_FROM }}
+      TOKEN_EXPIRES: ${{ secrets.TOKEN_EXPIRES }}
+      AUTH_TOKEN_EXPIRES: ${{ secrets.AUTH_TOKEN_EXPIRES }}
     steps:
       - name: Git checkout
         uses: actions/checkout@v2
