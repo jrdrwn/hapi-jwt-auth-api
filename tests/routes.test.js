@@ -10,8 +10,6 @@ const fakeUser = {
   email: 'rpritchitt9@t.co',
   name: 'Roberto Pritchitt',
   password: 'z56Pj7',
-  photo: 'http://dummyimage.com/204x118.png/cc0000/ffffff',
-  role: 'Research Assistant II',
 };
 const currentUser = {};
 const headers = {
@@ -71,17 +69,6 @@ describe('/auth', () => {
       expect.assertions(1);
       const failedFakeUser = { ...fakeUser };
       failedFakeUser.password = '';
-      const res = await server.inject({
-        method: 'PUT',
-        url,
-        payload: failedFakeUser,
-      });
-      expect(res.statusCode).toEqual(400);
-    });
-    test('harus gagal ketika penulisan URL photo tidak benar', async () => {
-      expect.assertions(1);
-      const failedFakeUser = { ...fakeUser };
-      failedFakeUser.photo = 'failed';
       const res = await server.inject({
         method: 'PUT',
         url,
@@ -168,8 +155,6 @@ describe('/auth', () => {
       expect(res.result.user).toMatchObject({
         email: fakeUser.email,
         name: fakeUser.name,
-        photo: fakeUser.photo,
-        role: fakeUser.role,
       });
     });
     test('harus gagal login ketika penulisan email tidak benar', async () => {
@@ -272,8 +257,6 @@ describe('/users', () => {
       expect(res.result).toMatchObject({
         email: fakeUser.email,
         name: fakeUser.name,
-        photo: fakeUser.photo,
-        role: fakeUser.role,
       });
     });
     test('harus gagal ketika authorization header tidak ada', async () => {
@@ -312,8 +295,6 @@ describe('/users', () => {
     const newFakeUser = {
       email: 'updaterpritchitt9@t.co',
       name: 'update Roberto Pritchitt',
-      photo: 'http://dummyimage.com/204x118.png/cc0000/ffffff/update',
-      role: 'update Research Assistant II',
     };
     test('harus berhasil memperbarui semua data field user kecuali password', async () => {
       expect.assertions(1);
