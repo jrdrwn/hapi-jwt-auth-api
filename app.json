@@ -16,6 +16,12 @@
     },
     "PORT": {
       "value": "5000"
-    }
+    },
+    "SMTP_HOST": { "value": "smtp.example.com" },
+    "SMTP_USER": { "value": "example.user" },
+    "SMTP_PASS": { "value": "example.password" },
+    "EMAIL_FROM": { "value": "example@domail.email" },
+    "TOKEN_EXPIRES": { "value": "600" },
+    "AUTH_TOKEN_EXPIRES": { "value": "0" }
   }
 }
