@@ -1,28 +1,26 @@
 name: Run tests
 
-on: 
+on:
   workflow_dispatch:
 
 jobs:
   build:
     runs-on: ubuntu-latest
-    env:
-      MONGODB_URL: mongodb://127.0.0.1:27017/test
-      JWT_SECRET: secret
+    environment: test
     steps:
-    - name: Git checkout
-      uses: actions/checkout@v2
+      - name: Git checkout
+        uses: actions/checkout@v2
 
-    - name: Use Node.js 16
-      uses: actions/setup-node@v2
-      with:
-        node-version: '16'
-        cache: 'yarn'
+      - name: Use Node.js 16
+        uses: actions/setup-node@v2
+        with:
+          node-version: "16"
+          cache: "yarn"
 
-    - name: Start MongoDB
-      uses: supercharge/mongodb-github-action@1.7.0
-      with:
-        mongodb-version: '5.0'
+      - name: Start MongoDB
+        uses: supercharge/mongodb-github-action@1.7.0
+        with:
+          mongodb-version: "5.0"
 
-    - run: yarn install
-    - run: yarn test
+      - run: yarn install
+      - run: yarn test
