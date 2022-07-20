@@ -11,17 +11,25 @@
       "description": "https://stackoverflow.com/questions/31309759/what-is-secret-key-for-jwt-based-authentication-and-how-to-generate-it",
       "value": "secret"
     },
-    "HOST": {
+    "JWT_AUTH_EXPIRATION_DAYS": {
+      "value": "30"
+    },
+    "JWT_RESET_PASSWORD_EXPIRATION_MINUTES": {
+      "value": "30"
+    },
+    "JWT_VERIFY_EMAIL_EXPIRATION_MINUTES": {
+      "value": "30"
+    },
+    "HOSTNAME": {
       "value": "0.0.0.0"
     },
     "PORT": {
       "value": "5000"
     },
     "SMTP_HOST": { "value": "smtp.example.com" },
+    "SMTP_PORT": { "value": "587" },
     "SMTP_USER": { "value": "example.user" },
     "SMTP_PASS": { "value": "example.password" },
-    "EMAIL_FROM": { "value": "example@domail.email" },
-    "TOKEN_EXPIRES": { "value": "600" },
-    "AUTH_TOKEN_EXPIRES": { "value": "0" }
+    "EMAIL_FROM": { "value": "example@domail.email" }
   }
 }

@@ -68,6 +68,10 @@ Alternatively, you can deploy your own copy of the app using this button:
 
 [![Deploy to Heroku](https://www.herokucdn.com/deploy/button.png)](https://heroku.com/deploy)
 
+## References
+
+- https://github.com/hagopj13/node-express-boilerplate
+
 ## License
 
 [MIT](https://choosealicense.com/licenses/mit/)

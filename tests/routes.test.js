@@ -1,6 +1,6 @@
-const { Server } = require('@hapi/hapi');
 const { describe, expect, test, beforeEach } = require('@jest/globals');
 const { default: mongoose, isValidObjectId } = require('mongoose');
+const { tokenTypes } = require('../lib/config/tokens');
 const Token = require('../lib/models/Token');
 const Users = require('../lib/models/Users');
 const { init } = require('../lib/server');
@@ -15,9 +15,7 @@ const currentUser = {};
 const headers = {
   authorization: '',
 };
-/**
- * @type {Server}
- */
+
 let server;
 
 beforeAll(async () => {
@@ -119,6 +117,7 @@ describe('/auth', () => {
       const dbVerifyEmailToken = await Token.findOne({
         token: verifyEmailToken,
         user: currentUser.userId,
+        type: tokenTypes.VERIFY_EMAIL,
       });
 
       expect(dbVerifyEmailToken).toBeDefined();
@@ -144,7 +143,7 @@ describe('/auth', () => {
     };
 
     test('harus berhasil login', async () => {
-      expect.assertions(2);
+      expect.assertions(3);
       const res = await server.inject({
         method: 'POST',
         url,
@@ -156,6 +155,8 @@ describe('/auth', () => {
         email: fakeUser.email,
         name: fakeUser.name,
       });
+      const authToken = await Token.findOne({ token: res.result.token, type: tokenTypes.AUTH });
+      expect(authToken).toBeDefined();
     });
     test('harus gagal login ketika penulisan email tidak benar', async () => {
       expect.assertions(1);
@@ -220,6 +221,7 @@ describe('/auth', () => {
       const dbResetPasswordToken = await Token.findOne({
         token: passwordResetToken,
         user: currentUser.userId,
+        type: tokenTypes.RESET_PASSWORD,
       });
 
       expect(dbResetPasswordToken).toBeDefined();
